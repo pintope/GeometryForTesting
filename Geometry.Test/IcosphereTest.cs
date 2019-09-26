@@ -68,9 +68,8 @@
             // Arrange: Obtiene un icosaedro de lado 1 y le pasa una clase de utilidades simulada.
             var toolMock = new Mock<MathTools>();
             int calls = 0;
-            toolMock.Setup(m =>
-                m.Mul(It.IsAny<double>(),
-                It.IsAny<double>())).Callback(() => calls++);
+            toolMock.Setup(m => m.Mul(It.IsAny<double>(), It.IsAny<double>()))
+                .Callback(() => calls++);
 
             Icosphere icosphere = new Icosphere();
             TestUtil.SetPrivateFieldOrProperty(icosphere, "tool", toolMock.Object);
