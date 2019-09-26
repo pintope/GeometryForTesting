@@ -23,7 +23,15 @@
         public void Icosphere_GetVolume_CalculationOfVolumeIsCorrect()
         {
             // Arrange: Obtiene un icosaedro de lado 1.
+            var toolMock = new Mock<MathTools>();
+            toolMock.Setup(m => m.Sin(It.IsAny<double>())).Returns((double n) => Math.Sin(n));
+            toolMock.Setup(m => m.Div(It.IsAny<double>(), It.IsAny<double>())).Returns((double a, double b) => a / b);
+            toolMock.Setup(m => m.Mul(It.IsAny<double>(), It.IsAny<double>())).Returns((double a, double b) => a*b);
+            toolMock.Setup(m => m.Pow(It.IsAny<double>(), It.IsAny<double>())).Returns((double a, double b) => Math.Pow(a, b));
+            toolMock.Setup(m => m.PI).Returns(Math.PI);
+
             Icosphere icosphere = new Icosphere();
+            TestUtil.SetPrivateFieldOrProperty(icosphere, "tool", toolMock.Object);
 
             // Act: Obtiene su volumen.
             double volume = icosphere.GetVolume();
