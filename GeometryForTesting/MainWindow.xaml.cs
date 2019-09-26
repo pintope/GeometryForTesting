@@ -14,9 +14,8 @@
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Icosahedron icosahedron = new Icosahedron(1, 1);
-            Icosahedron icosahedron = new Icosahedron(1);
-            icosahedron.Animate(this);
+            Icosphere icosphere = new Icosphere(1, 1);
+            icosphere.Animate(this);
 
             //Cube cube = new Cube();
             //cube.Animate(this);

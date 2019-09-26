@@ -1,38 +1,31 @@
 ﻿namespace GeometryForTesting.Geometry
 {
-    using System;
     using System.Windows.Media.Media3D;
     using System.Collections.Generic;
 
 
-    public class Icosahedron : RegularPolyhedron
+    public class Icosphere : RegularPolyhedron
     {
+        private MathTools tool;
         private MeshGeometry3D geometry;
         private int index;
-        //private readonly int subdivisionLevel;
+        private readonly int subdivisionLevel;
         private Dictionary<long, int> middlePointIndexCache;
 
 
-        public Icosahedron()
-            : this(1)
+        public Icosphere(double edge = 1, int level = 0)
         {
-        }
+            // Dependency.
+            tool = new MathTools();
 
-        public Icosahedron(double edge)
-        {
-            base.Initialize(edge);
+            subdivisionLevel = level;
+            Initialize(edge);
         }
-
-        //public Icosahedron(double edge, int level)
-        //{
-        //    subdivisionLevel = level;
-        //    Initialize(edge);
-        //}
 
         public override double GetVolume()
         {
-            return Edge * 5 * (3 + Math.Sqrt(5)) / 12;
-            //return (4 / 3) * Math.PI * Math.Pow((Edge * Math.Sin(2 * Math.PI / 5)), 3);
+            // El volumen es 4Π(1*Sen(2Π/5)³)/3.
+            return tool.Mul(tool.Div(4.0, 3.0), tool.Mul(tool.PI, tool.Pow(tool.Mul(Edge, tool.Sin(tool.Mul(2.0, tool.Div(tool.PI, 5.0)))), 3.0)));
         }
 
         /// <summary>
@@ -93,24 +86,24 @@
             };
 
             // Iterate over all subdivision levels for an icosphere.
-            //for (int i = 0; i < subdivisionLevel; i++)
-            //{
-            //    var faces2 = new List<TriangleIndices>();
-            //    foreach (var tri in faces)
-            //    {
-            //        // replace triangle by 4 triangles
-            //        int a = GetMiddlePoint(tri.v1, tri.v2);
-            //        int b = GetMiddlePoint(tri.v2, tri.v3);
-            //        int c = GetMiddlePoint(tri.v3, tri.v1);
+            for (int i = 0; i < subdivisionLevel; i++)
+            {
+                var faces2 = new List<TriangleIndices>();
+                foreach (var tri in faces)
+                {
+                    // replace triangle by 4 triangles
+                    int a = GetMiddlePoint(tri.v1, tri.v2);
+                    int b = GetMiddlePoint(tri.v2, tri.v3);
+                    int c = GetMiddlePoint(tri.v3, tri.v1);
 
-            //        faces2.Add(new TriangleIndices(tri.v1, a, c));
-            //        faces2.Add(new TriangleIndices(tri.v2, b, a));
-            //        faces2.Add(new TriangleIndices(tri.v3, c, b));
-            //        faces2.Add(new TriangleIndices(a, b, c));
-            //    }
+                    faces2.Add(new TriangleIndices(tri.v1, a, c));
+                    faces2.Add(new TriangleIndices(tri.v2, b, a));
+                    faces2.Add(new TriangleIndices(tri.v3, c, b));
+                    faces2.Add(new TriangleIndices(a, b, c));
+                }
 
-            //    faces = faces2;
-            //}
+                faces = faces2;
+            }
 
             // Add triangles to mesh.
             foreach (var tri in faces)
