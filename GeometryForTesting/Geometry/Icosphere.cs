@@ -29,7 +29,7 @@
         }
 
         /// <summary>
-        /// Create and returns an icosahedral mesh mesh.
+        /// Create and returns an icosahedral mesh.
         /// </summary>
         protected override MeshGeometry3D CreateShape()
         {
