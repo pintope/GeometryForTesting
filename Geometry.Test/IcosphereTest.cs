@@ -33,7 +33,7 @@
         }
 
         [TestMethod]
-        public void Icosphere_GetVolume_MethodSinIsInvoked()
+        public void Icosphere_MathToolsMethodSin_IsInvoked()
         {
             // Arrange: Obtiene un icosaedro de lado 1 y le pasa una clase de utilidades simulada.
             var toolMock = new Mock<MathTools>();
@@ -48,7 +48,7 @@
         }
 
         [TestMethod]
-        public void Icosphere_GetVolume_PropertyPIIsAccessed()
+        public void Icosphere_MathToolsPropertyPI_IsAccessed()
         {
             // Arrange: Obtiene un icosaedro de lado 1 y le pasa una clase de utilidades simulada.
             var toolMock = new Mock<MathTools>();
@@ -63,7 +63,7 @@
         }
 
         [TestMethod]
-        public void Icosphere_GetVolume_MethodMulIsInvokedNTimes()
+        public void Icosphere_MathToolsMethodMul_IsInvokedNTimes()
         {
             // Arrange: Obtiene un icosaedro de lado 1 y le pasa una clase de utilidades simulada.
             var toolMock = new Mock<MathTools>();
